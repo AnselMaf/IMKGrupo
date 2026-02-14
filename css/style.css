@@ -1,0 +1,1176 @@
+html, body{
+    font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+:root{
+    --bg:#0b0b10;
+    --text:#f2f2f7;
+    --muted:rgba(255,255,255,.72);
+    --purple:#8b56c9;
+    --purple-2:#6e3fb2;
+    min-height: 100vh;
+    --radius-xl:28px;
+    --shadow: 0 18px 40px rgb(0, 0, 0);
+    --maxw: 1100px;
+}
+
+*{ box-sizing:border-box; }
+body{
+    margin:0 auto;
+    background: black;
+    color: var(--text);
+}
+img{ max-width:100%; display:block; }
+a{ color:inherit; text-decoration:none; }
+
+/* =========================================================
+   03) LAYOUT / UTILITÁRIOS
+========================================================= */
+.container{
+    width:min(var(--maxw), 92vw);
+    margin:0 auto;
+}
+/* =========================================================
+   04) NAV (MENU)
+========================================================= */
+.topbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    position:relative;
+    z-index:2;
+}
+.nav{
+    display:flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content:flex-end;
+    align-items:center;
+}
+.nav a{
+    padding: 8px 10px;
+    border-radius: 999px;
+    font-weight: 800;
+    font-size: 12px;
+    color: rgba(255,255,255,.88);
+    border: 1px solid transparent;
+    transition: 0.15s ease;
+}
+.nav a:hover{
+    background: rgba(255,255,255,.08);
+    border-color: rgba(255,255,255,.12);
+}
+.nav a.active{
+    background: rgba(255,255,255,.12);
+    border-color: rgba(255,255,255,.18);
+    color: #fff;
+}
+
+/* =========================================================
+   HERO FULL + MENU (SEM EMPURRAR O TEXTO)
+========================================================= */
+.hero--full{
+    min-height: 120vh;
+    position: static;
+    overflow: hidden;
+
+    background:
+            linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.61) 55%, rgb(0, 0, 0) 100%),
+            url("../assets/imagens/2.png") center/cover no-repeat;
+}
+
+/* container ocupa o ecrã e centra conteúdo */
+.hero__wrap{
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* barra de topo flutuante (não ocupa espaço) */
+.hero__topbar{
+    position: absolute;
+    top: 14px;
+    left: 0;
+    right: 0;
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+}
+
+/* LOGO maior */
+.hero__logo img{
+    width: 140px; /* aumenta/diminui aqui */
+    height: auto;
+    opacity: .96;
+    padding: 0;   /* <<< aumenta/diminui aqui */
+
+}
+
+/* TEXTO central */
+.hero__content{
+    text-align: center;
+    width: 100%;
+    padding: 0 10px;
+}
+
+.hero__content h1{
+    margin: 0;
+    font-weight: 900;
+    line-height: 1.05;
+    font-size: clamp(40px, 4.6vw, 66px);
+}
+
+.hero__content p{
+    margin: 18px auto 0; /* mantém “junto” */
+    max-width: 760px;
+    font-size: 18px;
+    line-height: 1.55;
+    color: rgba(255,255,255,.86);
+}
+
+/* =========================================================
+   MENU no HERO (profissional)
+========================================================= */
+.nav--hero{
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    gap: 28px;
+}
+
+/* links */
+.nav--hero a{
+    position: relative;
+    padding: 6px 0;                 /* tira “pill” */
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+
+    font-weight: 600;
+    font-size: 16px;
+    color: rgba(255,255,255,.90);
+    letter-spacing: .2px;
+
+    transition: color .18s ease, transform .18s ease, opacity .18s ease;
+}
+
+/* hover moderno */
+.nav--hero a:hover{
+    color: #fff;
+    opacity: 1;
+    transform: translateY(-1px);
+}
+
+/* linha branca no hover (opcional) */
+.nav--hero a::after{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:-6px;                     /* distância da linha */
+    width:100%;
+    height:2px;
+    background: rgb(255, 255, 255);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .22s ease;
+}
+
+/* se quiser underline no hover também, deixa assim */
+.nav--hero a:hover::after{
+    transform: scaleX(1);
+}
+
+/* selecionado/ativo: underline branco fixo */
+.nav--hero a.active{
+    color:#fff;
+    opacity: 1;
+}
+
+.nav--hero a.active::after{
+    transform: scaleX(1);
+}
+
+/* acessibilidade: foco teclado */
+.nav--hero a:focus-visible{
+    outline: none;
+    color:#fff;
+}
+
+@media (prefers-reduced-motion: reduce){
+    .nav--hero a,
+    .nav--hero a::after{
+        transition: none;
+    }
+}
+
+/* =========================================================
+   MOBILE: hamburger (sem JS)
+========================================================= */
+.nav-toggle{ display:none; }
+.nav-burger{
+    display:none;
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,.14);
+    background: rgba(0,0,0,.35);
+    color: #fff;
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+    place-items: center;
+}
+
+/* RESPONSIVO */
+@media (max-width: 820px){
+    .hero__topbar{ padding: 0 16px; }
+    .nav--hero{ display:none; }
+    .nav-burger{ display:grid; }
+
+    .nav-toggle:checked ~ .nav--hero{
+        display:flex;
+        position:absolute;
+        top: 52px;
+        right: 16px;
+
+        flex-direction: column;
+        align-items: stretch;
+        min-width: 220px;
+
+        padding: 12px;
+        border-radius: 16px;
+
+        background: rgba(0,0,0,.55);
+        border: 1px solid rgba(255,255,255,.12);
+        backdrop-filter: blur(10px);
+    }
+
+    .nav--hero a{
+        padding: 10px 12px;
+        font-weight: 700;
+        font-size: 13px;
+    }
+
+    .hero__bottom{
+        grid-template-columns: 1fr;
+        padding: 0 16px;
+        bottom: 24px;
+    }
+
+    .hero__cta{
+        justify-self: start;
+        max-width: 620px;
+    }
+
+    .hero__brand-img{
+        width: min(420px, 86vw);
+    }
+}
+
+/* container ocupa o ecrã e centra conteúdo */
+.hero__wrap{
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* barra de topo flutuante (não ocupa espaço) */
+.hero__topbar{
+    position: absolute;
+    top: 14px;
+    left: 0;
+    right: 0;
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+}
+
+/* LOGO maior */
+.hero__logo img{
+    width: 140px; /* aumenta/diminui aqui */
+    height: auto;
+    opacity: .96;
+    padding: 0;   /* <<< aumenta/diminui aqui */
+
+}
+
+/* TEXTO central */
+.hero__content{
+    text-align: center;
+    width: 100%;
+    padding: 0 10px;
+}
+
+.hero__content h1{
+    margin: 0;
+    font-weight: 900;
+    line-height: 1.05;
+    font-size: clamp(40px, 4.6vw, 66px);
+}
+
+.hero__content p{
+    margin: 18px auto 0; /* mantém “junto” */
+    max-width: 760px;
+    font-size: 18px;
+    line-height: 1.55;
+    color: rgba(255,255,255,.86);
+}
+
+/* =========================================================
+   INTRO FULLSCREEN
+========================================================= */
+.intro {
+    margin-top: -280px; /* sobe a secção */
+    position: initial;
+    min-height: 97vh;
+    position: static;
+
+}
+.intro .container {
+    width: min(2000px, 100vw);
+
+}
+
+/* 2 colunas: foto à esquerda + card roxo à direita */
+.intro-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1.2fr;
+    gap: 30px;
+    align-items: center;
+
+
+}
+/* card da foto (igual ao print, mais “alto” e com moldura) */
+.photo-card {
+    border-radius: 28px;
+    overflow: hidden;
+
+}
+
+.photo-card img {
+    width: 300%;
+    height: 530px; /* aumenta para ocupar */
+    object-fit: cover;
+    box-shadow: none !important;
+    filter: none !important;
+    outline: none !important;
+    border: 0 !important;
+
+}
+
+/* card roxo maior, ocupando bem a tela */
+.purple-card {
+    height: 530px;
+    width: 90%;
+    background: #8b56c9;
+    border-radius: 28px;
+    box-shadow: 18px 20px rgba(0, 0, 0, .35);
+    padding: 20px 10px;
+    color: #fff;
+    text-align: center;
+}
+
+/* título */
+.purple-card h3 {
+    margin: 0 0 9px;
+    font-size: clamp(18px, 3.2vw, 24.9px);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+}
+
+/* parágrafos */
+.purple-card p {
+    margin: 0 auto 22px;
+    max-width: 48ch; /* controla largura do texto como no print */
+    font-size: clamp(18px, 2.2vw, 20.8px);
+    line-height: 1.55;
+    opacity: .92;
+}
+
+/* linha em negrito dentro do parágrafo */
+.purple-card .bold {
+    display: block;
+    margin-top: 10px;
+    font-weight: 800;
+    opacity: 1;
+}
+
+/* “Liderados por” */
+.purple-card .leader {
+    margin-top: 26px;
+    font-size: clamp(18px, 2vw, 20.8px);
+    font-weight: 600;
+    opacity: .95;
+}
+
+/* nome grande (cria esta classe no teu HTML no nome) */
+.purple-card .name {
+    margin-top: 6px;
+    font-size: clamp(30px, 4vw, 20.8px);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+}
+
+/* cargo */
+.purple-card .role {
+    margin-top: 10px;
+    font-size: clamp(16px, 1.8vw, 16.6px); /*Tamanho da letra*/
+    opacity: .92;
+}
+
+/* “tracinho” separador */
+.purple-card .divider {
+    width: 28px;
+    height: 2px;
+    margin: 28px auto 18px;
+    background: rgba(255, 255, 255, .7);
+    border-radius: 2px;
+}
+
+/* texto final */
+.purple-card .final-text {
+    margin: 9% auto 22px;
+    max-width: 38ch;
+    font-size: clamp(16.6px, 1.9vw, 20px);
+    line-height: 1.35;
+    font-weight: 500;
+    opacity: .95;
+}
+
+/* ajuste para telas pequenas */
+@media (max-width: 420px){
+    .purple-card{
+        padding: 56px 12px;
+        border-radius: 22px;
+    }
+}
+
+/* =========================================================
+   07) ECOSSISTEMA
+========================================================= */
+.ecosystem{
+    margin-top: -180px;
+    position: relative;
+    z-index: 5;
+    overflow: hidden;
+    padding: 90px 0 120px;
+
+    /* roxo com gradiente como na imagem */
+    background: linear-gradient(180deg,
+    rgba(0, 0, 0, 0.91) 29%,
+    rgba(11, 5, 16, 0.78) 19%,
+    rgba(11, 5, 16, 0.67) 19%,
+    rgb(139, 86, 201) 55%,
+    rgb(139, 86, 201) 55%,
+    rgb(139, 86, 201) 55%,
+    rgb(139, 86, 201) 79%,
+    #8b56c9 100%
+    );
+}
+/* “linhas/ondas” decorativas (top-right e centro) */
+.ecosystem::before{
+    content:"";
+    position:absolute;
+    inset:-120px;
+    pointer-events:none;
+    opacity:.16;
+    background:
+            repeating-radial-gradient(
+                    circle at 20% 65%,
+                    rgba(139, 86, 201, 0.24) 0px,
+                    rgba(139, 86, 201, 0.15) 1px,
+                    transparent 4px,
+                    transparent 44px
+            );
+}
+
+/* brilho suave (mantém o “ar” do fundo) */
+.ecosystem::after{
+    content:"";
+    position:absolute;
+    inset:-40px;
+    pointer-events:none;
+    opacity:.55;
+    background:
+            radial-gradient(520px 220px at 15% 70%, rgba(255,255,255,.10), transparent 70%),
+            radial-gradient(520px 220px at 85% 35%, rgba(255,255,255,.10), transparent 70%);
+}
+
+.ecosystem h2{
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    margin: 0 0 70px;
+    font-size: clamp(25px, 5vw, 50px);
+    font-weight: 500; /*PESO DA LETRA*/
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: #fff;
+}
+
+.eco-items{
+    position: relative;
+    z-index: 1;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(28px, 4vw, 90px);
+
+    align-items: start;
+    justify-items: center;
+}
+
+.eco-item{
+    text-align: center;
+    width: 110%;
+    max-width: 300px;
+}
+
+/* card da imagem */
+.eco-item .thumb{
+    width: 100%;
+    aspect-ratio: 13 / 10;
+    overflow: hidden;
+    border-radius: 34px;
+
+    /* recorte perfeito */
+    clip-path: inset(0 round 34px);
+}
+
+.eco-item .thumb img{
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+
+/* texto grande em baixo, bem “clean” */
+.eco-item p{
+    margin: 28px 0 0;
+    color: #fff;
+    font-weight: 300; /*PESO DA LETRA*/
+    font-size: clamp(22px, 2.7vw, 30px);
+    line-height: 1.18;
+    letter-spacing: -0.01em;
+}
+
+/* RESPONSIVO */
+@media (max-width: 980px){
+    .eco-items{
+        grid-template-columns: 1fr;
+        gap: 44px;
+    }
+    .ecosystem{
+        padding: 70px 0 90px;
+    }
+    .ecosystem h2{
+        margin-bottom: 42px;
+    }
+    .eco-item{
+        max-width: 520px;
+    }
+}
+/* =========================================================
+   08) LÍDERES
+========================================================= */
+.leaders{
+    padding: 70px 10px 100px;
+    background: #8b56c9; /* lilás */
+    padding-top: 10px;
+    transform: translateY(-20px);
+
+}
+.leaders h2{
+    margin: 0 0 56px;
+    text-align: center;
+    color: #fff;
+    font-weight: 600;
+    font-size: clamp(40px, 3.2vw, 90px);
+    letter-spacing: .2px;
+}
+
+/* grelha 3 colunas */
+.leaders-grid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 66px 80px; /* espaçamento como no print */
+    align-items: start;
+}
+
+/* item = foto + texto */
+.leader-item{
+    display: grid;
+    grid-template-columns: 170px 1fr;
+    gap: 18px;
+    align-items: center;
+}
+
+/* caixa da foto */
+.leader-photo{
+    width: 170px;
+    height: 180px; /*TAMANHO DA FOTO NA FORMA*/
+    border-radius: 14px;
+    background: #dcdcdc;      /* claro (top row) */
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+}
+
+.leader-photo--dark{
+    background: #111;          /* escuro (bottom row) */
+}
+
+/* imagem dentro da caixa */
+.leader-photo img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* texto */
+.leader-info h3{
+    margin: -41% 0 10px;
+    color: #fff;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.leader-info p{
+    margin: 0;
+    color: rgba(255,255,255,.92);
+    font-size: 10px;
+    line-height: 1.35;
+}
+/* RESPONSIVO */
+@media (max-width: 1050px){
+    .leaders-grid{
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px 50px;
+    }
+}
+
+/* =========================================================
+   09) ÁREAS DE ACTUAÇÃO
+========================================================= */
+
+.areas{
+    background: #f7f6fa;
+    color: #1b1523;
+    padding: 80px 0 110px;
+    transform: translateY(-20px);
+}
+
+/* TÍTULO grande e roxo */
+.areas h2{
+    margin: 0 0 46px;
+    text-align: center;
+    color: var(--purple);
+    font-size: clamp(12px, 5vw, 58px);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+}
+
+/* 5 colunas com bastante espaço */
+.area-grid{
+    display: flex;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 26px;
+    align-items: stretch;
+}
+
+/* cartão alto, fino e com borda roxa */
+.area{
+    background: transparent;                 /* como no print (fundo claro) */
+    border: 4px solid rgba(110,63,178,.65);  /* borda mais grossa */
+    border-radius: 22px;
+    padding: 28px 22px 26px;
+    min-height: 480px;                       /* fica “alto” */
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* título do cartão (grande, roxo) */
+.area h3{
+    margin: 0;
+    color: var(--purple);
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.15;
+}
+
+/* linha divisória longa (como na imagem) */
+.area .divider{
+    width: 78%;
+    height: 4px;
+    background: rgba(110,63,178,.70);
+    border-radius: 999px;
+    margin: 26px 0 26px;
+}
+
+/* texto centrado com espaçamento */
+.area p{
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.7;
+    color: rgba(27,21,35,.82);
+    max-width: 22ch;         /* força */
+}
+
+/* RESPONSIVO */
+@media (max-width: 1200px){
+    .area-grid{ grid-template-columns: repeat(3, 1fr); }
+    .area{ min-height: 460px; }
+}
+
+@media (max-width: 820px){
+    .area-grid{ grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 520px){
+    .area-grid{ grid-template-columns: 1fr; }
+    .areas h2{ margin-bottom: 28px; }
+    .area{ min-height: auto; }
+}
+
+
+/* =========================================================
+   10) EMPRESAS
+========================================================= */
+
+.brands{
+    background: #8b56c9;
+    padding: 70px 0 80px;
+    position: relative;
+    overflow: hidden;
+    transform: translateY(-20px);
+
+}
+
+/* layout: título à esquerda + logos à direita */
+.brands .container{
+    width: min(1130px, 96vw);  /* mais largo = conteúdo vai mais à esquerda */
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    align-items: center;
+
+}
+
+/* (opcional) brilho suave */
+.brands::before{
+    content:"";
+    position:absolute;
+    inset:-40px;
+    background:
+            radial-gradient(520px 240px at 85% 30%, rgba(255,255,255,.10), transparent 70%),
+            radial-gradient(620px 320px at 15% 85%, rgba(255,255,255,.10), transparent 70%);
+    opacity:.45;
+    pointer-events:none;
+}
+
+/* título grande */
+.brands h2{
+    margin: 0;
+    font-size: clamp(42px, 4vw, 46px);
+    font-weight: 600;
+    color: #fff;
+    line-height: 1;
+    position: relative;
+    z-index: 1;
+
+}
+
+/* fila de marcas à direita */
+.brand-row{
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    z-index: 1;
+}
+
+/* cada marca */
+.brand{
+    width: 180px;
+    text-align: center;
+    color: #fff;
+    display: grid;
+    justify-items: center;
+
+    transform: none;
+}
+
+.brand:hover{
+    transform: translateY(-2px);
+}
+
+/* círculo grande com borda branca */
+.brand .icon{
+    width: 98px;
+    height: 98px;
+    border-radius: 999px;
+
+    background: transparent;
+    border: 4px solid rgba(255,255,255,.95);
+
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    box-shadow: none;
+}
+
+/* logo maior dentro do círculo */
+.brand .icon img{
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+    filter: none;
+}
+
+/* nome em baixo (grande e bold) */
+.brand span{
+    display: block;
+    font-size: 22px;
+    font-weight: 400;
+    opacity: 1;
+    line-height: 1.05;
+}
+
+/* RESPONSIVO */
+@media (max-width: 1050px){
+    .brands .container{
+        grid-template-columns: 1fr;
+        gap: 26px;
+        justify-items: center;
+        text-align: center;
+    }
+
+    .brand-row{
+        flex-wrap: wrap;          /* no mobile deixa quebrar */
+        justify-content: center;
+    }
+}
+
+/* =========================================================
+   FOOTER / CONTACTO
+========================================================= */
+
+.contact{
+    position: relative;
+    padding-bottom: 0 !important;
+    overflow: visible !important;
+
+}
+
+/* gradiente roxo à esquerda (por trás das pessoas) */
+/*.contact::before{
+    content:"";
+    position:absolute;
+    left:0; top:0; bottom:0;
+    width: 55%;
+    background: linear-gradient(90deg,
+    rgb(139, 86, 201) 0%,
+    rgba(139, 86, 201, 0.27) 35%,
+    rgba(0,0,0,0) 100%
+    );
+    pointer-events:none;
+    z-index: 0;
+
+}*/
+
+/* ondas do lado direito */
+/*.contact::after{
+    content:"";
+    position:absolute;
+    right:-260px;
+    top:-140px;
+    width: 860px;
+    height: 680px;
+    opacity: .35;
+    background:
+            repeating-radial-gradient(circle at 35% 55%,
+            rgba(255,255,255,.10) 0px,
+            rgba(255,255,255,.10) 2px,
+            transparent 3px,
+            transparent 40px
+            );
+    pointer-events:none;
+    z-index: 0;
+}*/
+
+/* grid principal */
+.contact-inner{
+    width: min(1200px, 92vw);
+    margin: 0 auto;
+    display:grid;
+    align-items:end;
+    position: relative;
+    z-index: 5;
+    grid-template-columns: 1.55fr 1fr; /* aumenta o 1º número = mais espaço p/ a foto */
+    gap: 10px;
+
+}
+
+/* IMAGEM pessoas (SEM FUNDO) */
+.contact-people{
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+    overflow: visible;
+    justify-self: start;
+    line-height: 0;
+    position: relative;
+    z-index: 20;        /* acima da barra lilás */
+    margin-top: -90px;  /* AUMENTA para subir mais: -120px / -150px */
+
+}
+
+.contact-people img{
+    background: transparent;     /* sem fundo */
+    box-shadow: none;
+    height: auto;
+    width: min(1150px, 78vw); /* AUMENTA AQUI */
+    margin-left: -70px;       /* mais negativo = vai mais para a esquerda */
+    display: block;
+    z-index: 10 !important;
+    gap: 58px;
+
+}
+/* CONTEÚDO direita */
+.contact-content{
+    color:#fff;
+    max-width: 520px;
+    color: #fff;
+    height: 300px;
+}
+
+.contact-header{
+    display:flex;
+    justify-content: space-between;
+    align-items:flex-start;
+    gap: 58px;
+}
+
+.contact-content h3{
+    margin: 0 0 18px;
+    font-size: clamp(34px, 3.3vw, 44px);
+    line-height: 1.05;
+    font-weight: 800;
+    color: #af7ceb; /* roxo do título */
+}
+
+.contact-brand{
+    display:flex;
+    flex-direction: column;
+    align-items:flex-end;
+    gap: 10px;
+}
+
+.brand-logo{
+    width: 110px;
+    height:auto;
+
+}
+
+.brand-tagline{
+    font-size: 10px;
+    opacity: .75;
+}
+
+/* 2 colunas info */
+.contact-cols{
+    margin-top: 16px;
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 44px;
+}
+
+.contact-block b{
+    display:block;
+    font-size: 16px;
+    font-weight: 900;
+    margin-bottom: 6px;
+}
+
+.contact-block span{
+    display:block;
+    font-size: 12px;
+    opacity: .9;
+}
+
+.spacer{ height: 18px; }
+
+/* botão igual ao print */
+.btn-outline{
+    margin-top: 24px;
+    width: 100%;
+    max-width: 290px;
+    padding: 12px 18px;
+    border-radius: 20px;
+    border: 2px solid rgba(139, 86, 201, .95);
+    background: transparent;
+    color: #fff;
+    font-weight: 900;
+    font-size: 14px;
+    cursor: pointer;
+    transition:
+            background-color .18s ease,
+            border-color .18s ease,
+            color .18s ease,
+            transform .18s ease,
+            box-shadow .18s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* ao passar o mouse */
+.btn-outline:hover{
+    background: rgba(139, 86, 201, .18);
+    border-color: rgba(175, 124, 235, 1);
+    transform: translateY(-2px);
+    box-shadow: 0 14px 30px rgba(139,86,201,.22);
+}
+
+/* ao clicar */
+.btn-outline:active{
+    transform: translateY(0px) scale(.98);
+    box-shadow: 0 8px 18px rgb(173, 119, 236);
+}
+
+/* acessibilidade: quando seleciona por teclado */
+.btn-outline:focus-visible{
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(175,124,235,.25), 0 14px 30px rgba(139,86,201,.20);
+}
+
+/* efeito “brilho” passando por cima */
+.btn-outline::after{
+    content:"";
+    position:absolute;
+    top:-20%;
+    left:-60%;
+    width: 50%;
+    height: 140%;
+    transform: skewX(-18deg);
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.22), transparent);
+    opacity: 0;
+    transition: left .45s ease, opacity .2s ease;
+}
+
+.btn-outline:hover::after{
+    left: 120%;
+    opacity: 1;
+}
+
+/* respeita quem prefere menos animação */
+@media (prefers-reduced-motion: reduce){
+    .btn-outline, .btn-outline::after{ transition: none; }
+}
+
+
+/* =======================
+   RESPONSIVO
+======================= */
+@media (max-width: 900px){
+    .contact-inner{
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .contact-header{
+        flex-direction: column;
+        align-items:flex-start;
+    }
+
+    .contact-brand{
+        align-items:flex-start;
+    }
+
+    .contact-cols{
+        grid-template-columns: 1fr;
+        gap: 22px;
+    }
+}
+
+/* =========================================================
+   13) RESPONSIVO
+========================================================= */
+@media (max-width: 900px){
+    .intro{
+        min-height: auto;        /* no mobile não precisa forçar 100vh */
+        padding: 30px 0;
+    }
+
+    .intro-grid{
+        grid-template-columns: 1fr;
+    }
+
+    .photo-card img{
+        height: 320px;
+    }
+
+    .purple-card{
+        padding: 26px 18px;
+    }
+}
+
+
+/*____________________________________________________________*/
+
+/* 1) Tira a limitação do .container só no HERO */
+.hero--full .container.hero__wrap{
+    width: 100%;
+    max-width: none;
+    margin: 0;
+}
+
+/* 2) Agora o header consegue ir até as bordas */
+.hero__topbar{
+    left: 0;
+    right: 0;
+    padding: 0 40px;     /* <<< mexe aqui: 8px / 16px / 24px */
+    z-index: 10;
+}
+
+/* 3) O “inner” ocupa toda a largura e separa logo/menu */
+.hero__topbar-inner{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* 4) Mantém o texto do HERO “central” e com largura bonita */
+.hero__content{
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* 5) Tirar a “sobra”/fundo do menu (se você quer só texto) */
+.nav--hero{
+    background: transparent;
+    border: 0;
+    backdrop-filter: none;
+    box-shadow: none;
+    padding: 0;
+    gap: 22px;
+}
+
+.nav--hero a{
+    padding: 6px 4px;
+    font-weight: 500;
+    font-size: 15px;
+}

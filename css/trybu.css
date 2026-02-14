@@ -1,0 +1,868 @@
+html, body{
+    font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+:root{
+    --bg:#0b0b10;
+    --text:#f2f2f7;
+    --muted:rgba(255,255,255,.72);
+    --purple:#8b56c9;
+    --purple-2:#6e3fb2;
+    min-height: 100vh;
+    --radius-xl:28px;
+    --shadow: 0 18px 40px rgba(0,0,0,.35);
+    --maxw: 1100px;
+}
+
+*{ box-sizing:border-box; }
+body{
+    margin:0;
+    background: var(--bg);
+    color: var(--text);
+}
+img{ max-width:100%; display:block; }
+a{ color:inherit; text-decoration:none; }
+
+/* =========================================================
+   04) NAV (MENU)
+========================================================= */
+.topbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    position:relative;
+    z-index:2;
+}
+
+.nav{
+    display:flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content:flex-end;
+    align-items:center;
+}
+.nav a{
+    padding: 8px 10px;
+    border-radius: 999px;
+    font-weight: 800;
+    font-size: 12px;
+    color: rgba(255,255,255,.88);
+    border: 1px solid transparent;
+    transition: 0.15s ease;
+}
+.nav a:hover{
+    background: rgba(255,255,255,.08);
+    border-color: rgba(255,255,255,.12);
+}
+.nav a.active{
+    background: rgba(255,255,255,.12);
+    border-color: rgba(255,255,255,.18);
+    color: #fff;
+}
+
+/* =========================================================
+   HERO TRYBU (fundo + degradê + topo + conteúdo em baixo)
+========================================================= */
+
+/* HERO fundo */
+.hero--full{
+    min-height: 120vh;
+    position: relative;
+    overflow: hidden;
+
+    background:
+            linear-gradient(480deg,
+            rgba(0,0,0,.10) 0%,
+            rgba(0,0,0,.18) 55%,
+            rgba(0,0,0,.25) 100%
+            ),
+            url("../assets/imagens/29.png") center/cover no-repeat;
+}
+
+/* DEGRADÊ verde vindo de baixo */
+.hero--full::after{
+    content:"";
+    position:absolute;
+    left:0; right:0; bottom:0;
+    height: 50%;
+    background: linear-gradient(to top,
+    rgba(10, 70, 55, .78) 0%,
+    rgba(10, 70, 55, .45) 45%,
+    rgba(10, 70, 55, 0) 100%
+    );
+    pointer-events:none;
+    z-index: 1;
+}
+
+/* container do hero (acima do degradê) */
+.hero__wrap{
+    min-height: 88vh;
+    position: relative;
+    z-index: 2;
+}
+
+/* =========================================================
+   TOPO: logo à esquerda + menu à direita
+========================================================= */
+.hero__topbar{
+    position: absolute;
+    top: 14px;
+    left: 0;
+    right: 0;
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    z-index: 10;
+
+    padding: 0 32px; /* controla distância das bordas */
+}
+
+.hero__logo img{
+    width: 140px;
+    height: auto;
+    opacity: .96;
+}
+
+/* MENU (podes manter pill OU deixar “limpo”) */
+.nav--hero{
+    display:flex;
+    gap: 22px;
+    align-items:center;
+
+    /* versão “limpa” (sem sobra) */
+    background: transparent;
+    border: 0;
+    backdrop-filter: none;
+    box-shadow: none;
+    padding: 0;
+}
+
+.nav--hero a{
+    padding: 6px 4px;
+    border-radius: 999px;
+    font-weight: 500;
+    font-size: 15px;
+    color: rgba(255,255,255,.92);
+    transition: opacity .15s ease, transform .15s ease;
+}
+
+.nav--hero a:hover{
+    opacity: .9;
+    transform: translateY(-1px);
+}
+
+.nav--hero a.active{
+    color: #fff;
+}
+
+/* =========================================================
+   CONTEÚDO INFERIOR: logo trybu à esquerda + texto/botão à direita
+========================================================= */
+.hero__bottom{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 10px;         /* sobe/desce tudo */
+    z-index: 5;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    align-items: flex-end;
+    gap: 28px;
+    padding: 0 100px;      /* distância das bordas */
+}
+
+/* logo grande trybu em baixo à esquerda */
+.hero__brand{
+    display:flex;
+    align-items:flex-end;
+}
+
+/* se for imagem */
+.hero__brand-img{
+    width: min(520px, 100vw);
+    height: auto;
+    filter: drop-shadow(0 18px 10px rgba(0,0,0,.35));
+}
+
+/* se for texto (fallback) */
+.hero__brand-text{
+    font-size: clamp(80px, 10vw, 170px);
+    font-weight: 300;
+    line-height: .85;
+    color: rgba(255,255,255,.92);
+    letter-spacing: -2px;
+    text-shadow: 0 18px 40px rgba(0,0,0,.35);
+}
+
+/* texto + botão à direita */
+.hero__cta{
+    justify-self: center;
+    max-width: 520px;
+    margin-right: 90px;
+    text-align: center;
+}
+
+.hero__cta-text{
+    margin: 0 0 18px;
+    font-size: 18px;
+    line-height: 1.45;
+    color: rgba(255,255,255,.92);
+    text-shadow: 0 10px 30px rgba(0,0,0,.45);
+    text-align: center;
+}
+
+/* botão */
+.hero__btn{
+    display:inline-block;
+    padding: 12px 22px;
+    border-radius: 999px;
+    font-weight: 800;
+    font-size: 14px;
+    color: #0b2a1f;
+    margin-top: 18px;
+
+    background: rgba(209, 188, 128, .95);
+    border: 1px solid rgba(255,255,255,.20);
+    box-shadow: 0 14px 34px rgba(0,0,0,.35);
+}
+
+/* =========================================================
+   MOBILE: hamburger (sem JS)
+========================================================= */
+.nav-toggle{ display:none; }
+.nav-burger{
+    display:none;
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,.14);
+    background: rgba(0,0,0,.35);
+    color: #fff;
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+    place-items: center;
+}
+
+/* RESPONSIVO */
+@media (max-width: 820px){
+    .hero__topbar{ padding: 0 16px; }
+    .nav--hero{ display:none; }
+    .nav-burger{ display:grid; }
+
+    .nav-toggle:checked ~ .nav--hero{
+        display:flex;
+        position:absolute;
+        top: 52px;
+        right: 16px;
+
+        flex-direction: column;
+        align-items: stretch;
+        min-width: 220px;
+
+        padding: 12px;
+        border-radius: 16px;
+
+        background: rgba(0,0,0,.55);
+        border: 1px solid rgba(255,255,255,.12);
+        backdrop-filter: blur(10px);
+    }
+
+    .nav--hero a{
+        padding: 10px 12px;
+        font-weight: 700;
+        font-size: 13px;
+    }
+
+    .hero__bottom{
+        grid-template-columns: 1fr;
+        padding: 0 16px;
+        bottom: 24px;
+    }
+
+    .hero__cta{
+        justify-self: start;
+        max-width: 620px;
+    }
+
+    .hero__brand-img{
+        width: min(420px, 86vw);
+    }
+}
+
+/* container ocupa o ecrã e centra conteúdo */
+.hero__wrap{
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* barra de topo flutuante (não ocupa espaço) */
+.hero__topbar{
+    position: absolute;
+    top: 14px;
+    left: 0;
+    right: 0;
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+}
+
+/* LOGO maior */
+.hero__logo img{
+    width: 140px; /* aumenta/diminui aqui */
+    height: auto;
+    opacity: .96;
+    padding: 0;   /* <<< aumenta/diminui aqui */
+
+}
+
+/* TEXTO central */
+.hero__content{
+    text-align: center;
+    width: 100%;
+    padding: 0 10px;
+}
+
+.hero__content h1{
+    margin: 0;
+    font-weight: 900;
+    line-height: 1.05;
+    font-size: clamp(40px, 4.6vw, 66px);
+}
+
+.hero__content p{
+    margin: 18px auto 0; /* mantém “junto” */
+    max-width: 760px;
+    font-size: 18px;
+    line-height: 1.55;
+    color: rgba(255,255,255,.86);
+}
+
+/* =========================================================
+   MENU no HERO (profissional)
+========================================================= */
+.nav--hero{
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    gap: 28px;
+}
+
+/* links */
+.nav--hero a{
+    position: relative;
+    padding: 6px 0;                 /* tira “pill” */
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    font-weight: 600;
+    font-size: 16px;
+    color: rgba(255,255,255,.90);
+    letter-spacing: .2px;
+
+    transition: color .18s ease, transform .18s ease, opacity .18s ease;
+}
+
+/* hover moderno */
+.nav--hero a:hover{
+    color: #fff;
+    opacity: 1;
+    transform: translateY(-1px);
+}
+
+/* linha branca no hover (opcional) */
+.nav--hero a::after{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:-6px;                     /* distância da linha */
+    width:100%;
+    height:2px;
+    background: rgb(255, 255, 255);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .22s ease;
+}
+
+/* se quiser underline no hover também, deixa assim */
+.nav--hero a:hover::after{
+    transform: scaleX(1);
+}
+
+/* selecionado/ativo: underline branco fixo */
+.nav--hero a.active {
+    color:#fff;
+    opacity: 1;
+}
+
+.nav--hero a.active::after{
+    transform: scaleX(1);
+}
+
+/* acessibilidade: foco teclado */
+.nav--hero a:focus-visible{
+    outline: none;
+    color:#fff;
+}
+
+@media (prefers-reduced-motion: reduce){
+    .nav--hero a,
+    .nav--hero a::after{
+        transition: none;
+    }
+}
+
+/* =========================================================
+   10) EMPRESAS
+========================================================= */
+.brands{
+    background: #0b2a1f;
+    padding: 70px 0 80px;
+    position: relative;
+    overflow: hidden;
+    margin-top: -40px;      /* <- aumenta para sobrepor mais (-60, -80...) */
+    z-index: 20;            /* <- garante que fica por cima */
+}
+
+/* layout: título à esquerda + logos à direita */
+.brands .container{
+    width: min(1110px, 96vw);  /* mais largo = conteúdo vai mais à esquerda */
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    align-items: center;
+    gap: 40px;
+}
+
+/* (opcional) brilho suave */
+.brands::before{
+    content:"";
+    position:absolute;
+    inset:-40px;
+    background:
+            radial-gradient(520px 240px at 85% 30%, rgba(255,255,255,.10), transparent 70%),
+            radial-gradient(620px 320px at 15% 85%, rgba(255,255,255,.10), transparent 70%);
+    opacity:.45;
+    pointer-events:none;
+}
+
+/* título grande */
+.brands h2{
+    margin: 0;
+    font-size: clamp(52px, 5vw, 46px);
+    font-weight: 600;
+    color: #fff;
+    line-height: 1;
+    position: relative;
+    z-index: 1;
+}
+
+/* fila de marcas à direita */
+.brand-row{
+    display: flex;
+    justify-content: flex-start;
+    gap: clamp(26px, 3vw, 70px);
+    flex-wrap: nowrap;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+/* cada marca */
+.brand{
+    width: 160px;
+    text-align: center;
+    color: #fff;
+    display: grid;
+    justify-items: center;
+    gap: 12px;
+    transform: none;
+}
+
+.brand:hover{
+    transform: translateY(-2px);
+}
+
+/* círculo grande com borda branca */
+.brand .icon{
+    width: 98px;
+    height: 98px;
+    border-radius: 999px;
+
+    background: transparent;                 /* no print não tem “fill”, só borda */
+    border: 4px solid rgba(255,255,255,.95); /* borda branca forte */
+
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    box-shadow: none;
+}
+
+/* logo maior dentro do círculo */
+.brand .icon img{
+    width: 54px;
+    height: 54px;
+    object-fit: contain;
+    filter: none;
+}
+
+/* nome em baixo (grande e bold) */
+.brand span{
+    display: block;
+    font-size: 22px;
+    font-weight: 400;
+    opacity: 1;
+    line-height: 1.05;
+}
+
+/* RESPONSIVO */
+@media (max-width: 1050px){
+    .brands .container{
+        grid-template-columns: 1fr;
+        gap: 26px;
+        justify-items: center;
+        text-align: center;
+    }
+
+    .brand-row{
+        flex-wrap: wrap;          /* no mobile deixa quebrar */
+        justify-content: center;
+    }
+}
+
+/* =========================================================
+   13) RESPONSIVO
+========================================================= */
+@media (max-width: 900px){
+    .intro{
+        min-height: auto;        /* no mobile não precisa forçar 100vh */
+        padding: 30px 0;
+    }
+
+    .intro-grid{
+        grid-template-columns: 1fr;
+    }
+
+    .photo-card img{
+        height: 320px;
+    }
+
+    .purple-card{
+        padding: 26px 18px;
+    }
+}
+
+
+/* 1) Tira a limitação do .container só no HERO */
+.hero--full .container.hero__wrap{
+    width: 100%;
+    max-width: none;
+    margin: 0;
+}
+
+/* 2) Agora o header consegue ir até as bordas */
+.hero__topbar{
+    left: 0;
+    right: 0;
+    padding: 0 40px;     /* <<< mexe aqui: 8px / 16px / 24px */
+    z-index: 10;
+}
+
+/* 3) O “inner” ocupa toda a largura e separa logo/menu */
+.hero__topbar-inner{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* 4) Mantém o texto do HERO “central” e com largura bonita */
+.hero__content{
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* 5) Tirar a “sobra”/fundo do menu (se você quer só texto) */
+.nav--hero{
+    background: transparent;
+    border: 0;
+    backdrop-filter: none;
+    box-shadow: none;
+    padding: 0;
+    gap: 22px;
+}
+
+.nav--hero a{
+    padding: 6px 4px;
+    font-weight: 500;
+    font-size: 15px;
+}
+
+/* =========================================================
+   FOOTER / CONTACTO
+========================================================= */
+
+.contact{
+    position: relative;
+    padding-bottom: 3% !important;
+    overflow: visible !important;
+    background: #143a2a;
+}
+
+/* gradiente roxo à esquerda (por trás das pessoas) */
+/*.contact::before{
+    content:"";
+    position:absolute;
+    left:0; top:0; bottom:0;
+    width: 55%;
+    background: linear-gradient(90deg,
+    rgb(139, 86, 201) 0%,
+    rgba(139, 86, 201, 0.27) 35%,
+    rgba(0,0,0,0) 100%
+    );
+    pointer-events:none;
+    z-index: 0;
+
+}*/
+
+/* ondas do lado direito */
+/*.contact::after{
+    content:"";
+    position:absolute;
+    right:-260px;
+    top:-140px;
+    width: 860px;
+    height: 680px;
+    opacity: .35;
+    background:
+            repeating-radial-gradient(circle at 35% 55%,
+            rgba(255,255,255,.10) 0px,
+            rgba(255,255,255,.10) 2px,
+            transparent 3px,
+            transparent 40px
+            );
+    pointer-events:none;
+    z-index: 0;
+}*/
+
+/* grid principal */
+.contact-inner{
+    width: min(1200px, 92vw);
+    margin: 0 auto;
+    display:grid;
+    align-items:end;
+    position: relative;
+    z-index: 5;
+    grid-template-columns: 1.55fr 1fr; /* aumenta o 1º número = mais espaço p/ a foto */
+    gap: 10px;
+
+}
+
+/* IMAGEM pessoas (SEM FUNDO) */
+.contact-people{
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+    overflow: visible;
+    justify-self: start;
+    line-height: 0;
+    position: relative;
+    z-index: 20;        /* acima da barra lilás */
+    margin-top: -90px;  /* AUMENTA para subir mais: -120px / -150px */
+}
+
+.contact-people img{
+    background: transparent;     /* sem fundo */
+    box-shadow: none;
+    height: auto;
+    width: min(1150px, 78vw); /* AUMENTA AQUI */
+    margin-left: -70px;       /* mais negativo = vai mais para a esquerda */
+    display: block;
+    z-index: 10 !important;
+
+
+}
+/* CONTEÚDO direita */
+.contact-content{
+    color:#fff;
+    max-width: 520px;
+    color: #fff;
+    height: 300px;
+    margin-left: -300px;
+    margin-top: 19%;
+}
+
+.contact-header{
+    display:flex;
+    justify-content: space-between;
+    align-items:flex-start;
+    gap: 8px;
+}
+
+.contact-content h3{
+    margin: 0 0 18px;
+    font-size: clamp(34px, 3.3vw, 44px);
+    line-height: 1.05;
+    font-weight: 800;
+    color: #af7ceb; /* roxo do título */
+}
+
+.contact-brand{
+    display:flex;
+    flex-direction: column;
+    align-items:flex-end;
+    gap: 10px;
+}
+
+.brand-logo{
+    width: 110px;
+    height:auto;
+
+}
+
+.brand-tagline{
+    font-size: 10px;
+    opacity: .75;
+}
+
+/* 2 colunas info */
+.contact-cols{
+    margin-top: 16px;
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 44px;
+}
+
+.contact-block b{
+    display:block;
+    font-size: 16px;
+    font-weight: 900;
+    margin-bottom: 6px;
+}
+
+.contact-block span{
+    display:block;
+    font-size: 12px;
+    opacity: .9;
+}
+
+.spacer{ height: 18px; }
+
+/* botão igual ao print */
+.btn-outline{
+    margin-top: 24px;
+    width: 100%;
+    max-width: 290px;
+    padding: 12px 18px;
+    border-radius: 20px;
+    border: 2px solid rgba(139, 86, 201, .95);
+    background: transparent;
+    color: #fff;
+    font-weight: 900;
+    font-size: 14px;
+    cursor: pointer;
+    transition:
+            background-color .18s ease,
+            border-color .18s ease,
+            color .18s ease,
+            transform .18s ease,
+            box-shadow .18s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* ao passar o mouse */
+.btn-outline:hover{
+    background: rgba(139, 86, 201, .18);
+    border-color: rgba(175, 124, 235, 1);
+    transform: translateY(-2px);
+    box-shadow: 0 14px 30px rgba(139,86,201,.22);
+}
+
+/* ao clicar */
+.btn-outline:active{
+    transform: translateY(0px) scale(.98);
+    box-shadow: 0 8px 18px rgb(173, 119, 236);
+}
+
+/* acessibilidade: quando seleciona por teclado */
+.btn-outline:focus-visible{
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(175,124,235,.25), 0 14px 30px rgba(139,86,201,.20);
+}
+
+/* efeito “brilho” passando por cima */
+.btn-outline::after{
+    content:"";
+    position:absolute;
+    top:-20%;
+    left:-60%;
+    width: 50%;
+    height: 140%;
+    transform: skewX(-18deg);
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.22), transparent);
+    opacity: 0;
+    transition: left .45s ease, opacity .2s ease;
+}
+
+.btn-outline:hover::after{
+    left: 120%;
+    opacity: 1;
+}
+
+/* respeita quem prefere menos animação */
+@media (prefers-reduced-motion: reduce){
+    .btn-outline, .btn-outline::after{ transition: none; }
+}
+
+
+/* =======================
+   RESPONSIVO
+======================= */
+@media (max-width: 900px){
+    .contact-inner{
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .contact-header{
+        flex-direction: column;
+        align-items:flex-start;
+    }
+
+    .contact-brand{
+        align-items:flex-start;
+    }
+
+    .contact-cols{
+        grid-template-columns: 1fr;
+        gap: 22px;
+    }
+}
+
+/* =========================================================
+   13) RESPONSIVO
+========================================================= */
+@media (max-width: 900px){
+    .intro{
+        min-height: auto;        /* no mobile não precisa forçar 100vh */
+        padding: 30px 0;
+    }
+
+    .intro-grid{
+        grid-template-columns: 1fr;
+    }
+
+    .photo-card img{
+        height: 320px;
+    }
+
+    .purple-card{
+        padding: 26px 18px;
+    }
+}
